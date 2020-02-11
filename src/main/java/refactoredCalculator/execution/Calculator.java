@@ -19,31 +19,32 @@ public class Calculator {
         this.answer = answer;
         this.values = values;
     }
-    public void getTask(String input){
-        values.parseExpressionToValues(input);
-        this.firstOperator = values.getFirstOperator();
-        this.secondOperator = values.getSecondOperator();
-        this.operation = values.getOperation();
+    private void getTask(Values values){
+            this.firstOperator = values.getFirstOperator();
+            this.secondOperator = values.getSecondOperator();
+            this.operation = values.getOperation();
     }
 
-    public Double getAnswer() {
-        switch (operation) {
-            case '+':
-                answer = firstOperator + secondOperator;
-                break;
-            case '-':
-                answer = firstOperator - secondOperator;
-                break;
-            case '*':
-                 answer =  firstOperator * secondOperator;
-                break;
-            case '/':
-                answer = firstOperator / secondOperator;
-                break;
-            default:
-                System.out.println("Invalid Input");
-                break;
+    public Double getAnswer(Values values) {
+            getTask(values);
+            switch (operation) {
+                case '+':
+                    answer = firstOperator + secondOperator;
+                    break;
+                case '-':
+                    answer = firstOperator - secondOperator;
+                    break;
+                case '*':
+                    answer =  firstOperator * secondOperator;
+                    break;
+                case '/':
+                    answer = firstOperator / secondOperator;
+                    break;
+                default:
+                    System.out.println("Invalid Input");
+                    break;
+            }
+            return answer;
         }
-        return answer;
+
     }
-}

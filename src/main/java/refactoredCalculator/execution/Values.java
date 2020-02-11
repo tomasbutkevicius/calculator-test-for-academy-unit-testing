@@ -10,17 +10,12 @@ public class Values {
     public Values() {
     }
 
-    public Values(String input, char operation, Double firstOperator, Double secondOperator, Validator validator) {
+    public Values(String input) {
         this.input = input;
-        this.operation = operation;
-        this.firstOperator = firstOperator;
-        this.secondOperator = secondOperator;
-        this.validator = validator;
     }
 
-    public void parseExpressionToValues(String input){
+    public boolean parseExpressionToValues(){
         //Trim the String from trailing whitespaces for comparisons
-        if(validator.checkIfGoodInput(input)){
             try {
                 input = input.trim();
                 String[] expression = input.split(" ");
@@ -29,14 +24,12 @@ public class Values {
                 this.operation = expression[1].charAt(0);
                 //Operand 2
                 this.secondOperator = Double.parseDouble(expression[2]);
+                return true;
             } catch (Exception e) {
                 System.out.println("Invalid Input");
+                return false;
             }
         }
-        else {
-            System.out.println("Wrong input");
-        }
-    }
 
     public char getOperation() {
         return operation;

@@ -1,30 +1,41 @@
 package refactoredCalculator.execution;
 
+import refactoredCalculator.read.Reader;
+
 public class Validator {
     private String input;
+    private Values values;
+    private Reader reader;
 
-    public Validator() {
+    public Validator(Reader reader, Values values) {
+        this.reader = reader;
+        this.values = values;
     }
 
-    public Validator(String input) {
-        this.input = input;
+    public String getInput() {
+        return input;
     }
-
-    public boolean checkIfGoodInput(String input){
+    public boolean checkIfGoodInput() {
         //Trim the String from trailing whitespaces for comparisons
+        String input = reader.read();
+        values = new Values(input);
         input = input.trim();
-        String[] expression = input.split(" ");
-        //Check if the entered string was quit regardless of the case to end the program
-        switch(expression.length){
-            case 3:
-                return true;
-            default:
-                System.out.println("Wrong input");
-                break;
-        }
-        if(input.equalsIgnoreCase("quit")){
+        if (input.equalsIgnoreCase("quit")) {
             return false;
+        } else {
+            try {
+                String[] expression = input.split(" ");
+                if (expression.length != 3) {
+                    System.out.println("Invalid Input");
+                } else {
+                    return values.parseExpressionToValues();
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input");
+                return false;
+            }
         }
-        return true;
+        return values.parseExpressionToValues();
     }
+
 }

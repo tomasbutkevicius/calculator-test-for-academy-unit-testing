@@ -1,6 +1,9 @@
 package refactoredCalculator;
 
 import refactoredCalculator.CalculationPrompt.Prompter;
+import refactoredCalculator.execution.Calculator;
+import refactoredCalculator.execution.Validator;
+import refactoredCalculator.execution.Values;
 import refactoredCalculator.read.ConsoleInputReader;
 import refactoredCalculator.read.Reader;
 
@@ -56,7 +59,11 @@ public class CalculationApp {
 
     public static void main(String[] args) {
         //Continuously prompt for input
-        Prompter prompter = new Prompter();
+        ConsoleInputReader reader = new ConsoleInputReader();
+        Values values = new Values();
+        Validator validator = new Validator(reader, values);
+        Calculator calculator = new Calculator();
+        Prompter prompter = new Prompter(reader, validator, calculator, values);
         prompter.executePrompter();
         //Free all resources used by Scanner class
         System.out.println("GoodBye!");
